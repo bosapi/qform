@@ -1,6 +1,10 @@
 {
 	"name": "@bosapi/qform",
-	"version": "0.0.1",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/bosapi/qform"
+	},
+	"version": "0.0.0",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && npm run package",

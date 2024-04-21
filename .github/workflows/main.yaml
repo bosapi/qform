@@ -1,0 +1,29 @@
+name: Publish BosAPI QForm Library to NPM
+
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  publish:
+    name: Publishing to NPM
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the Repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GIT_TOKEN }}
+      - name: Automatic Tagging
+        id: meta
+        run: |
+          bash ./scripts/git_tag.sh -v patch
+      - name: Publish to NPM
+        working-directory: ./dist
+        run: |
+          git config user.email "admin@bosapi.com" 
+          git config user.name "bosapi"
+          npm version ${{ steps.meta.outputs.tags }}
+          npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
