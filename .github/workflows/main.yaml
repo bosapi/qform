@@ -18,6 +18,13 @@ jobs:
         id: meta
         run: |
           bash ./scripts/git_tag.sh -v patch
+      - name: Setup package
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          registry-url: 'https://registry.npmjs.org'
+      - name: Installing package 
+        run: npm install
       - name: Publish to NPM
         run: |
           git config user.email "admin@bosapi.com" 
