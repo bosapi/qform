@@ -1,7 +1,8 @@
 <script lang="ts">
 	import Label from '$lib/components/ui/label/label.svelte';
-	import { onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 	import * as funcs from '../functions/index.js';
+	import { storeForm } from '$lib/index.js';
 
 	export let key: string;
 	export let data: string | undefined = $$props.default;
@@ -58,6 +59,15 @@
 	}
 
 	onMount(getData);
+
+	const unsubscribe = storeForm.subscribe((value: any) => {
+		if (!value) return;
+		const options = value[key];
+		if (!options) return;
+		optionList = options;
+	});
+
+	onDestroy(unsubscribe);
 </script>
 
 <div class="control-string">
@@ -76,9 +86,11 @@
 			disabled={disabled || isLoading || localLoading}
 			{required}
 		>
-			{#each optionList as option}
-				<option value={option.id}>{option.name}</option>
-			{/each}
+			{#if optionList && optionList.length > 0}
+				{#each optionList as option}
+					<option value={option.id}>{option.name}</option>
+				{/each}
+			{/if}
 		</select>
 		{#if description}
 			<p class="text-sm text-muted-foreground">{@html description}</p>
