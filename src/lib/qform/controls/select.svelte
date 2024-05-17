@@ -88,7 +88,11 @@
 		>
 			{#if optionList && optionList.length > 0}
 				{#each optionList as option}
-					<option value={option.id}>{option.name}</option>
+					{#if option.id == value}
+						<option value={option.id} selected={true}>{option.name}</option>
+					{:else}
+						<option value={option.id}>{option.name}</option>
+					{/if}
 				{/each}
 			{/if}
 		</select>
