@@ -12,22 +12,17 @@
 	export let disabled: boolean | undefined = undefined;
 	export let isLoading = false;
 	export let options: any;
-	export let banded: any = undefined;
+	// export let banded: any = undefined;
 
 	let func: any = funcs;
 	let value: string = data ?? '';
 	let id: string = key;
-	let optionList = [
-		{
-			id: '',
-			name: 'Pilih Data'
-		}
-	];
+	let optionList: any = [];
 	let localLoading = false;
 
 	$: updateData(value);
 	$: updateValue(data);
-	$: updateBanded(banded);
+	// $: updateBanded(banded);
 
 	function updateData(val: string) {
 		const setData = val || undefined;
@@ -43,11 +38,11 @@
 		}
 	}
 
-	function updateBanded(bdata: any) {
-		value = '';
-		updateData(value);
-		updateValue(data);
-	}
+	// function updateBanded(bdata: any) {
+	// 	value = '';
+	// 	updateData(value);
+	// 	updateValue(data);
+	// }
 
 	async function getData() {
 		if (options?.form?.option?.func) {
@@ -87,6 +82,7 @@
 			{required}
 		>
 			{#if optionList && optionList.length > 0}
+				<option value="">Select data</option>
 				{#each optionList as option}
 					{#if option.id == value}
 						<option value={option.id} selected={true}>{option.name}</option>
@@ -94,6 +90,8 @@
 						<option value={option.id}>{option.name}</option>
 					{/if}
 				{/each}
+			{:else}
+				<option value="" selected>No option</option>
 			{/if}
 		</select>
 		{#if description}

@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { QForm } from '$lib/index.ts';
+	import { QForm, storeForm } from '$lib/index.ts';
+	import { onMount } from 'svelte';
 
 	const schema = {
 		title: 'Login Form',
@@ -31,6 +32,11 @@
 					}
 				}
 			},
+			role: {
+				type: 'select',
+				label: 'Role',
+				required: true
+			},
 			submit: {
 				type: 'submit',
 				label: 'Login',
@@ -43,6 +49,22 @@
 			}
 		}
 	};
+
+	onMount(() => {
+		setTimeout(() => {
+			storeForm.set({
+				role: [
+					{ id: 0, name: 'Nol' },
+					{ id: 1, name: 'Satu' },
+					{ id: 2, name: 'Dua' }
+				]
+			});
+		}, 1000);
+	});
+
+	let data = {
+		password: '123456'
+	};
 </script>
 
-<QForm {schema} />
+<QForm {schema} {data} />
