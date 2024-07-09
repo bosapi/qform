@@ -54,16 +54,17 @@
 		setTimeout(() => {
 			storeForm.set({
 				role: [
+					{ id: 2, name: 'Dua' },
 					{ id: 0, name: 'Nol' },
-					{ id: 1, name: 'Satu' },
-					{ id: 2, name: 'Dua' }
+					{ id: 1, name: 'Satu' }
 				]
 			});
 		}, 1000);
 	});
 
 	let data = {
-		password: '123456'
+		password: '123456',
+		role: 0
 	};
 </script>
 

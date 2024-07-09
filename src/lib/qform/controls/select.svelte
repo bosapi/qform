@@ -25,14 +25,14 @@
 	// $: updateBanded(banded);
 
 	function updateData(val: string) {
-		const setData = val || undefined;
+		const setData = val == undefined || val == null ? undefined : val;
 		if (data !== setData) {
 			data = setData;
 		}
 	}
 
 	function updateValue(val: string | undefined) {
-		const setValue = val ?? '';
+		const setValue = val == undefined || val == null ? '' : val;
 		if (value !== setValue) {
 			value = setValue;
 		}
@@ -84,7 +84,7 @@
 			{#if optionList && optionList.length > 0}
 				<option value="">Select data</option>
 				{#each optionList as option}
-					{#if option.id == value}
+					{#if option.id === value}
 						<option value={option.id} selected={true}>{option.name}</option>
 					{:else}
 						<option value={option.id}>{option.name}</option>
